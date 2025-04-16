@@ -23,9 +23,14 @@ const MemeTable = () => {
     { id: 1, name: 'Distracted Boyfriend', likes: 25 },
     { id: 2, name: 'Mocking SpongeBob', likes: 40 },
   ]);
-
   const [selectedMeme, setSelectedMeme] = useState(null);
+  const [newMeme, setNewMeme] = useState({ name: '', likes: '' });
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isNewMemeOpen,
+    onOpen: onNewMemeOpen,
+    onClose: onNewMemeClose,
+  } = useDisclosure();
 
   const handleEditClick = meme => {
     setSelectedMeme(meme);
@@ -39,6 +44,13 @@ const MemeTable = () => {
     setMemes(updatedMemes);
     onClose();
     setSelectedMeme(null);
+  };
+
+  const handleNewMemeSave = () => {
+    const newMemeWithId = { ...newMeme, id: memes.length + 1 };
+    setMemes([...memes, newMemeWithId]);
+    setNewMeme({ name: '', likes: '' });
+    onNewMemeClose();
   };
 
   return (
@@ -92,6 +104,42 @@ const MemeTable = () => {
                 Close
               </Button>
               <Button color="primary" onPress={handleSave}>
+                Save
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+
+      <Button onPress={onNewMemeOpen}>Add New Meme</Button>
+      {isNewMemeOpen && (
+        <Modal isOpen={isNewMemeOpen} onOpenChange={onNewMemeClose}>
+          <ModalContent>
+            <ModalHeader>Create New Meme</ModalHeader>
+            <ModalBody>
+              <div>
+                <Input
+                  label="Meme Name"
+                  value={newMeme.name}
+                  onChange={e =>
+                    setNewMeme({ ...newMeme, name: e.target.value })
+                  }
+                />
+                <Input
+                  label="Likes"
+                  type="number"
+                  value={newMeme.likes}
+                  onChange={e =>
+                    setNewMeme({ ...newMeme, likes: e.target.value })
+                  }
+                />
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onNewMemeClose}>
+                Close
+              </Button>
+              <Button color="primary" onPress={handleNewMemeSave}>
                 Save
               </Button>
             </ModalFooter>
