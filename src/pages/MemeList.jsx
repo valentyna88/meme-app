@@ -22,8 +22,13 @@ const MemeList = () => {
         <Card key={meme.id}>
           <CardHeader>
             <Image
-              src="https://heroui.com/images/hero-card-complete.jpeg"
+              src={meme.image}
               alt={meme.name}
+              width={400}
+              height={300}
+              onError={e => {
+                e.currentTarget.src = '/fallback.png';
+              }}
               className="rounded-xl object-cover w-full"
             />
           </CardHeader>
@@ -33,7 +38,7 @@ const MemeList = () => {
           </CardBody>
           <CardFooter>
             <a
-              href="https://heroui.com/images/hero-card-complete.jpeg"
+              href={meme.image}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 hover:underline text-sm"

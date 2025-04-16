@@ -50,7 +50,11 @@ const MemeTable = () => {
   const handleNewSave = () => {
     setMemes([
       ...memes,
-      { ...newMeme, id: memes.length + 1, likes: getRandomLikes() },
+      {
+        ...newMeme,
+        id: memes.length + 1,
+        likes: getRandomLikes(),
+      },
     ]);
     setNewMeme({ name: '', likes: '' });
     setIsNewOpen(false);
