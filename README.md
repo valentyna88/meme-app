@@ -12,7 +12,7 @@ deployed using [Railway](https://railway.app/).
 - Delete memes with confirmation
 - Persistent data using `localStorage`
 - Modals for Add / Edit / Delete confirmation
-- Responsive UI using [@heroui](https://heroui.dev/)
+- Responsive UI using [@heroui](https://www.heroui.com)
 
 ## 📦 Tech Stack
 
@@ -29,8 +29,30 @@ deployed using [Railway](https://railway.app/).
 ```bash
 git clone https://github.com/valentyna88/meme-app.git
 cd meme-app
-
 ```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the app locally:
+
+```bash
+npm run dev
+```
+
+## 🌐 Live Demo
+
+[Check it out on Railway](https://meme-app-production-c896.up.railway.app/)
+
+## 🧪 To Do / Ideas
+
+- Add image upload
+- Sort by likes
+- Search/filter memes
+- Pagination
 
 ## 👩‍💻 Author
 
