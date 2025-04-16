@@ -25,6 +25,13 @@ const EditMemeModal = ({ isOpen, onClose, meme, setMeme, onSave }) => {
             value={meme.likes}
             onChange={e => setMeme({ ...meme, likes: e.target.value })}
           />
+          <Input
+            label="Image URL (.jpg)"
+            value={meme.image}
+            onChange={e => setMeme({ ...meme, image: e.target.value })}
+            isRequired
+            placeholder="https://example.com/meme.jpg"
+          />
         </ModalBody>
         <ModalFooter>
           <Button color="danger" variant="light" onPress={onClose}>
