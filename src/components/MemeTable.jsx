@@ -8,49 +8,37 @@ import {
   TableCell,
 } from '@heroui/table';
 import { Button } from '@heroui/button';
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from '@heroui/react';
-import { Input } from '@heroui/input';
+import EditMemeModal from './EditMemeModal';
+import AddMemeModal from './AddMemeModal';
 
 const MemeTable = () => {
   const [memes, setMemes] = useState([
     { id: 1, name: 'Distracted Boyfriend', likes: 25 },
     { id: 2, name: 'Mocking SpongeBob', likes: 40 },
   ]);
+
   const [selectedMeme, setSelectedMeme] = useState(null);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   const [newMeme, setNewMeme] = useState({ name: '', likes: '' });
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isNewMemeOpen,
-    onOpen: onNewMemeOpen,
-    onClose: onNewMemeClose,
-  } = useDisclosure();
+  const [isNewOpen, setIsNewOpen] = useState(false);
 
   const handleEditClick = meme => {
     setSelectedMeme(meme);
-    onOpen();
+    setIsEditOpen(true);
   };
 
-  const handleSave = () => {
-    const updatedMemes = memes.map(meme =>
-      meme.id === selectedMeme.id ? selectedMeme : meme
+  const handleEditSave = () => {
+    setMemes(
+      memes.map(meme => (meme.id === selectedMeme.id ? selectedMeme : meme))
     );
-    setMemes(updatedMemes);
-    onClose();
+    setIsEditOpen(false);
     setSelectedMeme(null);
   };
 
-  const handleNewMemeSave = () => {
-    const newMemeWithId = { ...newMeme, id: memes.length + 1 };
-    setMemes([...memes, newMemeWithId]);
+  const handleNewSave = () => {
+    setMemes([...memes, { ...newMeme, id: memes.length + 1 }]);
     setNewMeme({ name: '', likes: '' });
-    onNewMemeClose();
+    setIsNewOpen(false);
   };
 
   return (
@@ -76,76 +64,25 @@ const MemeTable = () => {
         </TableBody>
       </Table>
 
+      <Button onPress={() => setIsNewOpen(true)}>Add New Meme</Button>
+
       {selectedMeme && (
-        <Modal isOpen={isOpen} onOpenChange={onClose}>
-          <ModalContent>
-            <ModalHeader>Edit Meme</ModalHeader>
-            <ModalBody>
-              <div>
-                <Input
-                  label="Meme Name"
-                  value={selectedMeme.name}
-                  onChange={e =>
-                    setSelectedMeme({ ...selectedMeme, name: e.target.value })
-                  }
-                />
-                <Input
-                  label="Likes"
-                  type="number"
-                  value={selectedMeme.likes}
-                  onChange={e =>
-                    setSelectedMeme({ ...selectedMeme, likes: e.target.value })
-                  }
-                />
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-              <Button color="primary" onPress={handleSave}>
-                Save
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <EditMemeModal
+          isOpen={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          meme={selectedMeme}
+          setMeme={setSelectedMeme}
+          onSave={handleEditSave}
+        />
       )}
 
-      <Button onPress={onNewMemeOpen}>Add New Meme</Button>
-      {isNewMemeOpen && (
-        <Modal isOpen={isNewMemeOpen} onOpenChange={onNewMemeClose}>
-          <ModalContent>
-            <ModalHeader>Create New Meme</ModalHeader>
-            <ModalBody>
-              <div>
-                <Input
-                  label="Meme Name"
-                  value={newMeme.name}
-                  onChange={e =>
-                    setNewMeme({ ...newMeme, name: e.target.value })
-                  }
-                />
-                <Input
-                  label="Likes"
-                  type="number"
-                  value={newMeme.likes}
-                  onChange={e =>
-                    setNewMeme({ ...newMeme, likes: e.target.value })
-                  }
-                />
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onNewMemeClose}>
-                Close
-              </Button>
-              <Button color="primary" onPress={handleNewMemeSave}>
-                Save
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      )}
+      <AddMemeModal
+        isOpen={isNewOpen}
+        onClose={() => setIsNewOpen(false)}
+        newMeme={newMeme}
+        setNewMeme={setNewMeme}
+        onSave={handleNewSave}
+      />
     </div>
   );
 };
