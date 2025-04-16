@@ -12,15 +12,16 @@ import EditMemeModal from '../components/EditMemeModal';
 import AddMemeModal from '../components/AddMemeModal';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import memesWithLikes, { getRandomLikes } from '../data/initialMemes';
+import { loadMemesFromStorage, saveMemesToStorage } from '../utils/storage';
 
 const MemeTable = () => {
   const [memes, setMemes] = useState(() => {
-    const storedMemes = localStorage.getItem('memes');
-    return storedMemes ? JSON.parse(storedMemes) : memesWithLikes;
+    return loadMemesFromStorage() || memesWithLikes;
   });
 
   const [selectedMeme, setSelectedMeme] = useState(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
+
   const [newMeme, setNewMeme] = useState({ name: '', likes: '' });
   const [isNewOpen, setIsNewOpen] = useState(false);
 
@@ -29,8 +30,7 @@ const MemeTable = () => {
 
   useEffect(() => {
     if (memes.length) {
-      console.log('Saving memes to localStorage:', memes);
-      localStorage.setItem('memes', JSON.stringify(memes));
+      saveMemesToStorage(memes);
     }
   }, [memes]);
 
