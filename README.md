@@ -1,12 +1,41 @@
-# React + Vite
+# Meme App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple meme management app built with React. Users can add, edit, and delete
+memes with random likes. All data is persisted in localStorage. This project was
+deployed using [Railway](https://railway.app/).
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Display memes in a table
+- Add a new meme with a random number of likes
+- Edit meme names and likes
+- Delete memes with confirmation
+- Persistent data using `localStorage`
+- Modals for Add / Edit / Delete confirmation
+- Responsive UI using [@heroui](https://heroui.dev/)
 
-## Expanding the ESLint configuration
+## 📦 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- localStorage for persistence
+- Railway for deployment
+- HeroUI components (Table, Button, Modal, etc.)
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/valentyna88/meme-app.git
+cd meme-app
+
+```
+
+## 👩‍💻 Author
+
+Created by Valentyna Taranchuk
+
+- GitHub: https://github.com/valentyna88
+
+- Gmail: valyataranchuk8@gmail.com
