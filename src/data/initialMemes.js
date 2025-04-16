@@ -1,3 +1,5 @@
+export const getRandomLikes = () => Math.floor(Math.random() * 100);
+
 const initialMemes = [
   {
     id: 1,
@@ -51,4 +53,9 @@ const initialMemes = [
   },
 ];
 
-export default initialMemes;
+const memesWithLikes = initialMemes.map(meme => ({
+  ...meme,
+  likes: getRandomLikes(),
+}));
+
+export default memesWithLikes;

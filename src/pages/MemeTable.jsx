@@ -10,13 +10,13 @@ import {
 import { Button } from '@heroui/button';
 import EditMemeModal from '../components/EditMemeModal';
 import AddMemeModal from '../components/AddMemeModal';
-import initialMemes from '../data/initialMemes';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+import memesWithLikes, { getRandomLikes } from '../data/initialMemes';
 
 const MemeTable = () => {
   const [memes, setMemes] = useState(() => {
     const storedMemes = localStorage.getItem('memes');
-    return storedMemes ? JSON.parse(storedMemes) : initialMemes;
+    return storedMemes ? JSON.parse(storedMemes) : memesWithLikes;
   });
 
   const [selectedMeme, setSelectedMeme] = useState(null);
@@ -24,8 +24,8 @@ const MemeTable = () => {
   const [newMeme, setNewMeme] = useState({ name: '', likes: '' });
   const [isNewOpen, setIsNewOpen] = useState(false);
 
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false); // новий стан для відкриття модалки видалення
-  const [memeToDelete, setMemeToDelete] = useState(null); // для зберігання мемів, які видаляємо
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [memeToDelete, setMemeToDelete] = useState(null);
 
   useEffect(() => {
     if (memes.length) {
@@ -48,18 +48,19 @@ const MemeTable = () => {
   };
 
   const handleNewSave = () => {
-    setMemes([...memes, { ...newMeme, id: memes.length + 1 }]);
+    setMemes([
+      ...memes,
+      { ...newMeme, id: memes.length + 1, likes: getRandomLikes() },
+    ]);
     setNewMeme({ name: '', likes: '' });
     setIsNewOpen(false);
   };
 
-  // Відкриття модалки для підтвердження видалення
   const handleDeleteClick = meme => {
     setMemeToDelete(meme);
     setIsDeleteOpen(true);
   };
 
-  // Підтвердження видалення мему
   const handleDeleteConfirm = () => {
     setMemes(memes.filter(meme => meme.id !== memeToDelete.id));
     setIsDeleteOpen(false);
