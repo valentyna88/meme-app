@@ -4,7 +4,7 @@ import { heroui } from '@heroui/theme';
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/@heroui/theme/dist/components/(button|input|modal|navbar|table|ripple|spinner|form|checkbox|spacer).js"
+    "./node_modules/@heroui/theme/dist/components/(button|image|input|modal|navbar|table|ripple|spinner|form|checkbox|spacer).js"
   ],
   theme: {
     extend: {},

@@ -1,12 +1,24 @@
-import MemeTable from './MemeTable';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import MemeTable from '../pages/MemeTable';
+import MemeList from '../pages/MemeList';
+import AppNavbar from './AppNavbar';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1>Memes Directory</h1>
-      <MemeTable />
-    </div>
+    <Router>
+      <AppNavbar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/table" />} />
+        <Route path="/table" element={<MemeTable />} />
+        <Route path="/list" element={<MemeList />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
